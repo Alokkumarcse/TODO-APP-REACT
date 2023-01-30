@@ -1,0 +1,13 @@
+.navbar {
+  border: 2px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.span {
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
