@@ -1,23 +1,25 @@
-import React from 'react';
+import React,{useState} from 'react';
 
-function InputTask({storeInput, postData}) {
+const InputTask = ({addTask}) => {
+  const [input, setInput] = useState("");
   
+  function handleInput(e){
+    setInput(e.target.value);
+  }
+
   return (
     <div style={{border:"1px solid lightgrey", padding:"10px", display:"flex", justifyContent:"center", alignContent:"center", gap:"5px"}}>
-      <form>
-        <input 
-          type="text" 
-          placeholder="What's need to be done?" 
-          style={{padding:"5px 10px", textAlign:"center" }}
-          onChange={(e) => storeInput(e)}
-        />
-        <button onClick={postData} style={{padding:"2px 10px", textAlign:"center" }}>
-          <i class="fa-solid fa-circle-plus"></i>
-        </button>
-      </form>
-     
+      <input 
+        type="text" 
+        placeholder="What's need to be done?" 
+        style={{padding:"5px 10px", textAlign:"center" }}
+        onChange={handleInput}
+        onBlur={(e) => e.target.value=""}
+      />
+      <button onClick={() => addTask(input)} style={{padding:"2px 10px", textAlign:"center" }}>
+        <i className="fa-solid fa-circle-plus"></i>
+      </button>
     </div>
   )
 }
-
 export default InputTask

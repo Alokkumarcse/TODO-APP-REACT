@@ -10,3 +10,16 @@
   gap:10px;
   padding:0 10px;
 }
+
+.input__box {
+  border:1px solid lightgrey;
+  padding:10px;
+  display:flex; 
+  justify-content:center;
+  align-content:center;
+  gap:5px;
+}
+
+.input {
+  padding: 5px 10px;
+}
