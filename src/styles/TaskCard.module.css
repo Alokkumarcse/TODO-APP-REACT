@@ -1,0 +1,48 @@
+.container {
+  display:flex;
+  justify-content:space-between;
+  align-items: center;
+  gap:5px;
+  padding: 5px;
+  border:2px solid gray;
+  border-radius: 3px;
+}
+
+.task__card {
+  width: 85%;
+  font-size: 13px;
+}
+
+.checkbox {
+
+  padding-right:7px;
+  cursor: pointer;
+  color: green;
+}
+
+.non__checkbox {
+
+  padding-right: 7px;
+  cursor: pointer;
+}
+
+.text {
+  display: flex;
+  align-items: center;
+  text-transform: capitalize;
+}
+
+.btn {
+  width: 15%;
+  display: flex;
+  justify-content: flex-end;
+  gap:7px;
+}
+
+.edit__btn {
+  cursor: pointer;
+}
+
+.delete__btn {
+  cursor: pointer;
+}

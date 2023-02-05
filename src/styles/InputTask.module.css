@@ -1,0 +1,11 @@
+.container {
+  padding: 10px; 
+  display: flex; 
+  justify-content: center; 
+  gap: 5px;
+}
+
+.btn {
+  padding: 2px 10px;
+  text-align: center;
+}

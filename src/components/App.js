@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import styles from '../styles/App.module.css';
 import Navbar from './Navbar';
 import InputTask from './InputTask';
-import Task from './Task';
+import TaskCard from './TaskCard';
 
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
   const [todo, setTodo] = useState([]);
   /** Data loading message */
   const [load, setLoad] = useState(true);
-  const [message, setMessage] = useState("Loading...");
+  const [message, setMessage] = useState("Task Loading...");
  
   /** jsonplaceholder url */
   const url = "https://jsonplaceholder.typicode.com/todos";
@@ -20,11 +20,13 @@ function App() {
    * Fetch todo list from JSONPlaceholder api using get request
    */
   useEffect(() => {
-    fetch(`${url}?_limit=5`)
+    fetch(`${url}?_limit=20`)
     .then((response) => response.json())
     .then((data) => {
-      setTodo(data);
-      setLoad(false); 
+      setTimeout(() => {
+        setTodo(data);
+        setLoad(false); 
+      },800);
     })
     .catch(err => console.log(err));
   },[]);
@@ -33,6 +35,14 @@ function App() {
   /** 
    * Function for add the task using post request 
    */
+  function pressEnter(event, title){
+    if(event.keyCode !== 13){
+      return;
+    }
+    addTask(title);
+    event.target.value = "";
+  }
+
   async function addTask(title) {
     // if input is empty string or only space given.
     if(title.trim() === "" || title ==="") return;
@@ -42,6 +52,7 @@ function App() {
       body:JSON.stringify({
         userId:1,
         title:`${title}`,
+        completed:false,
       }),
       headers:{
         'Content-type':'application/json; charset=UTF-8',
@@ -60,7 +71,6 @@ function App() {
    * Function for Update the task
    */
   function updateTask(task){
-    task = todo.filter((item) => item.title === task.title);
     console.log(task);
   }
 
@@ -68,7 +78,13 @@ function App() {
    * Function for make the task completed
    */
   function completeTask(task) {
-    
+    console.log("clicked");
+    if(task.completed === true){
+      task["completed"] = false;
+    }else{
+      task["completed"] = true;
+    }
+    setTodo([...todo]);
   }
 
   /**
@@ -98,20 +114,22 @@ function App() {
   /** UI code - jsx */
   return (
     <div className={styles.app}>
-      <Navbar />
-      <InputTask addTask={addTask} />
-      <div className={styles.task__list}>
-        { 
-          load
-          ? <div>{message}</div>
-          : todo.map((task,index) => <Task 
-            task={task}
-            key={`${task.title}${task.id}`} 
-            updateTask={updateTask} 
-            deleteTask={deleteTask} 
-            completeTask={completeTask}
-          />)
-        }
+      <Navbar className={styles.navbar}/>
+      <div className={styles.task__container}>
+        <InputTask addTask={addTask} pressEnter={pressEnter} />
+        <div className={styles.task__list}>
+          { load
+            ? <div>{message}</div>
+            : todo.map((task,index) => <TaskCard 
+              task={task}
+              key={`${task.title}${task.id}`} 
+              updateTask={updateTask} 
+              deleteTask={deleteTask} 
+              completeTask={completeTask}
+            />)
+          }
+        </div>
+
       </div>
     </div>
   );

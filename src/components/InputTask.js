@@ -1,22 +1,26 @@
 import React,{useState} from 'react';
 
-const InputTask = ({addTask}) => {
+import styles from '../styles/InputTask.module.css';
+
+const InputTask = ({addTask, pressEnter}) => {
   const [input, setInput] = useState("");
+  const [value, setValue] = useState("");
   
   function handleInput(e){
     setInput(e.target.value);
   }
 
   return (
-    <div style={{border:"1px solid lightgrey", padding:"10px", display:"flex", justifyContent:"center", alignContent:"center", gap:"5px"}}>
+    <div className={styles.container}>
       <input 
+        style={{padding:"5px 10px"}}
         type="text" 
         placeholder="What's need to be done?" 
-        style={{padding:"5px 10px", textAlign:"center" }}
         onChange={handleInput}
-        onBlur={(e) => e.target.value=""}
+        onKeyDown={(e) => pressEnter(e,input)}
+        onBlur={(e) => e.target.value = ""}
       />
-      <button onClick={() => addTask(input)} style={{padding:"2px 10px", textAlign:"center" }}>
+      <button className={styles.btn} onClick={() => addTask(input)}>
         <i className="fa-solid fa-circle-plus"></i>
       </button>
     </div>
