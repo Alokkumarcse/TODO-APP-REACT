@@ -22,7 +22,7 @@ const InputTask = ({addTask, pressEnter,updateTask, deleteTask, completeTask, to
       {/* Input box to take user input */}
       <div className={styles.input__container}>
         <input 
-          style={{padding:"5px 10px", fontSize:"1rem"}}
+          style={{padding:"5px 10px", fontSize:"1rem", width:"65%"}}
           type="text" 
           placeholder="What's need to be done?" 
           value={value}
