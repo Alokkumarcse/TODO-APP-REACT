@@ -11,9 +11,9 @@
   z-index: 3;
 }
 
-::-webkit-scrollbar{
+/* ::-webkit-scrollbar{
   display: none;
-}
+} */
 
 .task__container {
   height: 85vh;
