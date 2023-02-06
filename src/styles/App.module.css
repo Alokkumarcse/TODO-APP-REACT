@@ -25,13 +25,6 @@
   border-top-right-radius: 0;
 }
 
-.task__list {
-  display: flex;
-  flex-direction: column;
-  gap:10px;
-  padding:0 10px;
-}
-
 .input__box {
   padding:10px;
   display:flex; 

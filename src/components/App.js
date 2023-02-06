@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import styles from '../styles/App.module.css';
 import Navbar from './Navbar';
 import InputTask from './InputTask';
-import TaskCard from './TaskCard';
+// import TaskCard from './TaskCard';
 
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
    * Fetch todo list from JSONPlaceholder api using get request
    */
   useEffect(() => {
-    fetch(`${url}?_limit=20`)
+    fetch(`${url}?_limit=50`)
     .then((response) => response.json())
     .then((data) => {
       setTimeout(() => {
@@ -71,14 +71,23 @@ function App() {
    * Function for Update the task
    */
   function updateTask(task){
-    console.log(task);
+    fetch(`${url}/1`, {
+      method:"PATCH",
+      body:JSON.stringify({ title: task.title}),
+      headers:{'Content-type': "application/json"}
+    })
+    .then(res => res.json())
+    .then( data => {
+      data = todo.filter((item) => item.title !== task.title);
+      setTodo([...data]);
+    })
+    .catch(err => console.log(err));
   }
 
   /**
    * Function for make the task completed
    */
   function completeTask(task) {
-    console.log("clicked");
     if(task.completed === true){
       task["completed"] = false;
     }else{
@@ -96,8 +105,8 @@ function App() {
     })
     .then(resp => resp.json())
     .then(data => {
-      console.log(data);
-      console.log("deleted task ", task.title);
+      // console.log(data);
+      // console.log("deleted task ", task.title);
       data = todo.filter((item) => task.title !== item.title);
       setTodo([...data]);
 
@@ -109,27 +118,23 @@ function App() {
   }
 
   /** console the updated todo list */
-  console.log(todo);
+  // console.log(todo);
 
   /** UI code - jsx */
   return (
     <div className={styles.app}>
       <Navbar className={styles.navbar}/>
       <div className={styles.task__container}>
-        <InputTask addTask={addTask} pressEnter={pressEnter} />
-        <div className={styles.task__list}>
-          { load
-            ? <div>{message}</div>
-            : todo.map((task,index) => <TaskCard 
-              task={task}
-              key={`${task.title}${task.id}`} 
-              updateTask={updateTask} 
-              deleteTask={deleteTask} 
-              completeTask={completeTask}
-            />)
-          }
-        </div>
-
+        <InputTask 
+          addTask={addTask} 
+          pressEnter={pressEnter} 
+          todo={todo}
+          load={load}
+          updateTask={updateTask}
+          deleteTask={deleteTask}
+          completeTask={completeTask}
+          message ={message}
+        />
       </div>
     </div>
   );

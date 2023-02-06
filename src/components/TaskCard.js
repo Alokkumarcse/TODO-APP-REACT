@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from '../styles/TaskCard.module.css';
 
-const Task = ({task, updateTask, deleteTask,completeTask}) => {
+const Task = ({task, updateTask, deleteTask, completeTask, setValue}) => {
   const {title, completed} = task;
   return (
     <div className={styles.container}>
@@ -20,7 +20,7 @@ const Task = ({task, updateTask, deleteTask,completeTask}) => {
         }
       </div>
       <div className={styles.btn}>
-        <i className={`fa-solid fa-pen-to-square ${styles.edit__btn}`} onClick={() => updateTask(task)}> </i>
+        <i className={`fa-solid fa-pen-to-square ${styles.edit__btn}`} onClick={() => {setValue(task.title); updateTask(task); }}> </i>
         <i className={`fa-solid fa-trash ${styles.delete__btn}`} onClick={() => deleteTask(task)}> </i>
       </div>
     </div>
