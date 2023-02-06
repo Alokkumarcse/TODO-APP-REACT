@@ -10,9 +10,8 @@
   overflow: hidden;
   z-index: 3;
 }
-
-/* ::-webkit-scrollbar{
-  display: none;
+/* 
+::-webkit-scrollbar{
 } */
 
 .task__container {
